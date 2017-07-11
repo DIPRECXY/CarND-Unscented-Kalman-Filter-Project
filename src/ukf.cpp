@@ -1,4 +1,5 @@
 #include "ukf.h"
+#include "tools.h"
 #include "Eigen/Dense"
 #include <iostream>
 
@@ -24,10 +25,10 @@ UKF::UKF() {
   P_ = MatrixXd(5, 5);
 
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 30;
+  std_a_ = 5;//30
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 30;
+  std_yawdd_ = 3;//30
 
   // Laser measurement noise standard deviation position1 in m
   std_laspx_ = 0.15;
@@ -60,11 +61,11 @@ UKF::UKF() {
   n_x_ = 5;
   n_aug_ = n_x_ + 2;
   lambda_ = 3 - n_aug_;
-  P_ << 0.15, 0, 0, 0, 0,
-           0, 1, 0, 0, 0,
-           0, 0, 1, 0, 0,
-           0, 0, 0, 1, 0,
-           0, 0, 0, 0, 1;
+  P_ << 1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
+        0, 0, 0, 0, 1;
   
   Xsig_pred_ = MatrixXd(n_x_, 2 * n_aug_ +1);
 }
